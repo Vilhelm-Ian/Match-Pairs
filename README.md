@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+To checkout the finished project head to https://match-pairs-next-js.herokuapp.com
+
 ## Getting Started
 
 First, run the development server:
