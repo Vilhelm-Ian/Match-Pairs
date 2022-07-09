@@ -1,28 +1,40 @@
-  .card {
+.card {
   width: 100%;
   height: 100%;
-  position: relative;
+ position: relative;
+  perspective: 1000px;
+  background: transparent;
+}
+
+.card_inner:hover{
+  transform: rotateY(180deg);
 }
 
 .card_inner {
-
+ position: absolute;
+ width: 100%;
+ height: 100%;
+ transition: all 1s ease;
+ transform-style: preserve-3d;
 }
 
 .card_front, .card_back {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
+  backface-visibility: hidden;
 }
 
 .card_front {
-  z-index: 0;
   background: blue;
 }
 
 .card_back {
-  z-index: 0;
+  font-size: 5em;
+  background: yellow;
+  transform: rotateY(180deg);
 }
 
-.card_back:hover {
-  z-index: -1;
-}

@@ -1,13 +1,31 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import Card from "../components/Card"
 
+let emojis = "😀 😃 😄 😁 😆 😅 😂 🤣 🥲 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐 🤓 😎 🥸 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🤭 🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡 💩 👻 💀 ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾".split(" ")
+
 const Home: NextPage = () => {
-  const [difficulty, setDifficulty] = useState(1)
-  let cards = [] 
-  for(let i = 0; i<15; i++) cards.push(<Card key={i}/>)
+const [difficulty, setDifficulty] = useState(1)
+
+
+
+let cards = [] 
+  let grid = ""
+  switch(difficulty) {
+    case 1:
+    grid = styles.grid_layout_easy
+    break
+    case 2:
+    grid = styles.grid_layout_medium
+    break
+    case 3:
+    grid = styles.grid_layout_hard
+    break
+  }
+
+  for(let i = 0; i<30*difficulty; i++) cards.push(<Card value={emojis[i]} key={i}/>)
 
   return (
     <div className={styles.container}>
@@ -18,9 +36,13 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <nav><button>easy</button><button>medium</button><button>hard</button></nav>
+      <nav>
+        <button onClick={(_)=>setDifficulty(1)}>easy</button>
+        <button onClick={(_)=>setDifficulty(2)}>medium</button>
+        <button onClick={(_)=>setDifficulty(3)}>hard</button>
+        </nav>
         <div>60:00</div>
-        <section className={styles.grid_layout}>
+        <section className={grid}>
         {cards}
         </section>
       </main>

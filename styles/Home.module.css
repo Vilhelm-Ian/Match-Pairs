@@ -17,13 +17,26 @@
   text-decoration: none;
 }
 
-.grid_layout {
+.grid_layout_easy, .grid_layout_medium, .grid_layout_hard{
   width: 100%;
   height: 90vh;
   display: grid;
   gap: 5px;
-  grid-template-columns: repeat(5, 1fr) 
+  grid-auto-rows: 10%;
 }
+
+.grid_layout_easy {
+  grid-template-columns: repeat(auto-fit, minmax(100px,0.2fr)); 
+}
+
+.grid_layout_medium {
+  grid-template-columns: repeat(auto-fit, minmax(100px,0.2fr)); 
+}
+
+.grid_layout_hard {
+  grid-template-columns: repeat(auto-fit, minmax(100px,0.2fr));
+}
+
 
 @media (max-width: 600px) {
   .grid {
