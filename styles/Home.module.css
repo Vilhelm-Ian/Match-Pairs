@@ -2,6 +2,16 @@
   padding: 0 2rem;
 }
 
+.button {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: stretch;
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
