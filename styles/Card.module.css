@@ -1,0 +1,29 @@
+  .card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.card_inner {
+
+}
+
+.card_front, .card_back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.card_front {
+  z-index: 0;
+  background: blue;
+}
+
+.card_back {
+  background: red;
+  z-index: 0;
+}
+
+.card_back:hover {
+  z-index: -1;
+}

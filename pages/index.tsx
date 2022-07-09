@@ -7,7 +7,7 @@ import Card from "../components/Card"
 const Home: NextPage = () => {
   const [difficulty, setDifficulty] = useState(1)
   let cards = [] 
-  for(let i = 0; i<10; i++) cards.push(Card)
+  for(let i = 0; i<9; i++) cards.push(<Card key={i}/>)
 
   return (
     <div className={styles.container}>
@@ -20,9 +20,9 @@ const Home: NextPage = () => {
       <main>
         <nav><button>easy</button><button>medium</button><button>hard</button></nav>
         <div>60:00</div>
-        <div>
+        <section className={styles.grid_layout}>
         {cards}
-        </div>
+        </section>
       </main>
     </div>
   )
