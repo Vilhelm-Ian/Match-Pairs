@@ -8,7 +8,7 @@ export default function Card() {
 				n
 			</div>
 			<div className={style.card_back}>
-				meee
+				m
 			</div> 
 		</div>
 	</div>
