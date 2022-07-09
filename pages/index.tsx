@@ -9,11 +9,11 @@ let emojis =
     " "
   );
 
- export interface element {
-   value: string,
-   key: number,
- }
-   
+export interface element {
+  value: string;
+  key: number;
+}
+
 function shuffle(arr: any[]): any[] {
   for (let i = 0; i < arr.length; i++) {
     let random = Math.floor(Math.random() * arr.length);
@@ -24,28 +24,26 @@ function shuffle(arr: any[]): any[] {
   return arr;
 }
 
+let difficulty_styles = [
+  styles.grid_layout_easy,
+  styles.grid_layout_medium,
+  styles.grid_layout_hard,
+];
+
 const Home: NextPage = () => {
   const [difficulty, setDifficulty] = useState(1);
   const [cards, setCards] = useState<string[]>([]);
-  const [clicked, setClicked] = useState<[element, element]>([{value: "", key: NaN}, {value: "", key: NaN}]);
-
-
-  let grid = "";
-  switch (difficulty) {
-    case 1:
-      grid = styles.grid_layout_easy;
-      break;
-    case 2:
-      grid = styles.grid_layout_medium;
-      break;
-    case 3:
-      grid = styles.grid_layout_hard;
-      break;
-  }
+  const [clicked, setClicked] = useState<[element, element]>([
+    { value: "", key: NaN },
+    { value: "", key: NaN },
+  ]);
 
 
   useEffect(() => {
-	  setClicked([{value: "", key: NaN}, {value: "", key: NaN}])
+    setClicked([
+      { value: "", key: NaN },
+      { value: "", key: NaN },
+    ]);
     emojis = shuffle(emojis);
     let temp = [];
     for (let i = 0; i < 10 * difficulty; i++) {
@@ -57,14 +55,22 @@ const Home: NextPage = () => {
     setCards(temp);
   }, [difficulty]);
 
-  let jsx_cards = generate_jsx_cards()
+  let jsx_cards = generate_jsx_cards();
 
-  function generate_jsx_cards(): JSX.Element[]{
-  const arr =  []
-  for(let i = 0; i<cards.length; i++) {
-    arr.push(<Card key={i} index={i} clicked={clicked} value={cards[i]} setClicked={setClicked}/>)
-  }
-  return arr
+  function generate_jsx_cards(): JSX.Element[] {
+    const arr = [];
+    for (let i = 0; i < cards.length; i++) {
+      arr.push(
+        <Card
+          key={i}
+          index={i}
+          clicked={clicked}
+          value={cards[i]}
+          setClicked={setClicked}
+        />
+      );
+    }
+    return arr;
   }
 
   return (
@@ -76,11 +82,17 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <nav className={styles.nav}>
-          <button className={styles.button} onClick={(_) => setDifficulty(1)}>easy</button>
-          <button className={styles.button} onClick={(_) => setDifficulty(2)}>medium</button>
-          <button className={styles.button} onClick={(_) => setDifficulty(3)}>hard</button>
+          <button className={styles.button} onClick={(_) => setDifficulty(1)}>
+            easy
+          </button>
+          <button className={styles.button} onClick={(_) => setDifficulty(2)}>
+            medium
+          </button>
+          <button className={styles.button} onClick={(_) => setDifficulty(3)}>
+            hard
+          </button>
         </nav>
-        <section className={grid}>{jsx_cards}</section>
+        <section className={difficulty_styles[difficulty-1]}>{jsx_cards}</section>
       </main>
     </div>
   );
