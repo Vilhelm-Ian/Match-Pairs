@@ -4,9 +4,10 @@
  position: relative;
   perspective: 1000px;
   background: transparent;
+  aspect-ratio: 1/1;
 }
 
-.card_inner:hover{
+.card_inner_rotate{
   transform: rotateY(180deg);
 }
 
@@ -33,7 +34,7 @@
 }
 
 .card_back {
-  font-size: 5em;
+  font-size: min(5vw,4rem);
   background: yellow;
   transform: rotateY(180deg);
 }

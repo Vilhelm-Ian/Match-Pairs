@@ -1,31 +1,64 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import {useState, useEffect} from "react"
-import Card from "../components/Card"
+import type { NextPage } from "next";
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import { useState, useEffect } from "react";
+import Card from "../components/Card";
 
-let emojis = "😀 😃 😄 😁 😆 😅 😂 🤣 🥲 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐 🤓 😎 🥸 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🤭 🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡 💩 👻 💀 ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾".split(" ")
+let emojis =
+  "😀 😃 😄 😁 😆 😅 😂 🤣 🥲 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐 🤓 😎 🥸 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🤭 🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡 💩 👻 💀 ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾".split(
+    " "
+  );
+
+ export interface element {
+   value: string,
+   key: number,
+ }
+   
+function shuffle(arr: any[]): any[] {
+  for (let i = 0; i < arr.length; i++) {
+    let random = Math.floor(Math.random() * arr.length);
+    let temp = arr[i];
+    arr[i] = arr[random];
+    arr[random] = temp;
+  }
+  return arr;
+}
 
 const Home: NextPage = () => {
-const [difficulty, setDifficulty] = useState(1)
+  const [difficulty, setDifficulty] = useState(1);
+  const [cards, setCards] = useState<string[]>([]);
+  const [clicked, setClicked] = useState<[element, element]>([{value: "", key: NaN}, {value: "", key: NaN}]);
 
-
-
-let cards = [] 
-  let grid = ""
-  switch(difficulty) {
+  let grid = "";
+  switch (difficulty) {
     case 1:
-    grid = styles.grid_layout_easy
-    break
+      grid = styles.grid_layout_easy;
+      break;
     case 2:
-    grid = styles.grid_layout_medium
-    break
+      grid = styles.grid_layout_medium;
+      break;
     case 3:
-    grid = styles.grid_layout_hard
-    break
+      grid = styles.grid_layout_hard;
+      break;
   }
 
-  for(let i = 0; i<30*difficulty; i++) cards.push(<Card value={emojis[i]} key={i}/>)
+
+  useEffect(() => {
+    emojis = shuffle(emojis);
+    let temp = [];
+    for (let i = 0; i < 10 * difficulty; i++) {
+      let z = i;
+      if (i >= (10 * difficulty) / 2) z -= (10 * difficulty) / 2;
+      temp.push(emojis[z]);
+    }
+    temp = shuffle(temp);
+    setCards(temp);
+  }, [difficulty]);
+
+  let jsx_cards = []
+  for(let i = 0; i<cards.length; i++) {
+    jsx_cards.push(<Card key={i} index={i} clicked={clicked} value={cards[i]} setClicked={setClicked}/>)
+  }
 
   return (
     <div className={styles.container}>
@@ -36,18 +69,16 @@ let cards = []
       </Head>
 
       <main>
-      <nav>
-        <button onClick={(_)=>setDifficulty(1)}>easy</button>
-        <button onClick={(_)=>setDifficulty(2)}>medium</button>
-        <button onClick={(_)=>setDifficulty(3)}>hard</button>
+        <nav>
+          <button onClick={(_) => setDifficulty(1)}>easy</button>
+          <button onClick={(_) => setDifficulty(2)}>medium</button>
+          <button onClick={(_) => setDifficulty(3)}>hard</button>
         </nav>
         <div>60:00</div>
-        <section className={grid}>
-        {cards}
-        </section>
+        <section className={grid}>{jsx_cards}</section>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

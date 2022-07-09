@@ -26,15 +26,15 @@
 }
 
 .grid_layout_easy {
-  grid-template-columns: repeat(auto-fit, minmax(100px,0.2fr)); 
+  grid-template-columns: repeat(5,1fr); 
 }
 
 .grid_layout_medium {
-  grid-template-columns: repeat(auto-fit, minmax(100px,0.2fr)); 
+  grid-template-columns: repeat(5,1fr); 
 }
 
 .grid_layout_hard {
-  grid-template-columns: repeat(auto-fit, minmax(100px,0.2fr));
+  grid-template-columns: repeat(6, 0.5fr);
 }
 
 
