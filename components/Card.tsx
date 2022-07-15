@@ -35,13 +35,14 @@ export default function Card(props: {
 	useEffect(
 		(temp = 0) => {
 			props.setClicked((oldState: [element, element]) => {
-				for (let i = 0; i < oldState.length; i++) {
-					if (oldState[i].value === "" && temp === 0 && isClicked) {
-						oldState[i] = { key: props.index, value: props.value };
+				let newState = [...oldState];
+				for (let i = 0; i < newState.length; i++) {
+					if (newState[i].value === "" && temp === 0 && isClicked) {
+						newState[i] = { key: props.index, value: props.value };
 						temp += 1;
 					}
 				}
-				return [...oldState];
+				return [...newState];
 			});
 		},
 		[isClicked]
