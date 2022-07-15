@@ -18,7 +18,8 @@ export default function Card(props: {
 
 	useEffect(() => {
 		for (let i = 0; i < props.clicked.length; i++) {
-			if (props.clicked[i].key === props.index) {
+			if (props.clicked[i].key === props.index && isClicked) {
+				console.log("are we here", props.clicked[i].key, props.index);
 				if (props.clicked[0].value === props.clicked[1].value)
 					setIsSolved(true);
 				else setTimeout(() => setIsClicked(!isClicked), 1000);

@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Card from "../components/Card";
 
 let emojis =
@@ -38,7 +38,6 @@ const Home: NextPage = () => {
     { value: "", key: NaN },
   ]);
 
-
   useEffect(() => {
     setClicked([
       { value: "", key: NaN },
@@ -55,14 +54,13 @@ const Home: NextPage = () => {
     setCards(temp);
   }, [difficulty]);
 
-  let jsx_cards = generate_jsx_cards();
-
-  function generate_jsx_cards(): JSX.Element[] {
+  let jsx_cards = useMemo(() => {
     const arr = [];
     for (let i = 0; i < cards.length; i++) {
+      if (i === 0) console.log(clicked);
       arr.push(
         <Card
-          key={i}
+          key={`${i}${difficulty}`}
           index={i}
           clicked={clicked}
           value={cards[i]}
@@ -71,7 +69,7 @@ const Home: NextPage = () => {
       );
     }
     return arr;
-  }
+  }, [difficulty, cards, clicked]);
 
   return (
     <div className={styles.container}>
@@ -92,7 +90,9 @@ const Home: NextPage = () => {
             hard
           </button>
         </nav>
-        <section className={difficulty_styles[difficulty-1]}>{jsx_cards}</section>
+        <section className={difficulty_styles[difficulty - 1]}>
+          {jsx_cards}
+        </section>
       </main>
     </div>
   );
