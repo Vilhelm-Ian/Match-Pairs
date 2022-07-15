@@ -10,29 +10,30 @@ export default function Card(props: {
 }) {
 	const [isClicked, setIsClicked] = useState(false);
 	const [isSolved, setIsSolved] = useState(false);
-  
+
+	let { clicked, index, setClicked, value } = props;
+	let first_clicked_element = clicked[1];
 
 	useEffect(() => {
-		for (let i = 0; i < props.clicked.length; i++) {
-			if (props.clicked[i].key === props.index && isClicked) {
-				if (props.clicked[0].value === props.clicked[1].value)
-					setIsSolved(true);
+		for (let i = 0; i < clicked.length; i++) {
+			if (clicked[i].key === index && isClicked) {
+				if (clicked[0].value === clicked[1].value) setIsSolved(true);
 				else setTimeout(() => setIsClicked(!isClicked), 1000);
-				props.setClicked([
+				setClicked([
 					{ value: "", key: NaN },
 					{ value: "", key: NaN },
 				]);
 			}
 		}
-	}, [props.clicked[1]]);
+	}, [first_clicked_element]);
 
 	useEffect(
 		(temp = 0) => {
-			props.setClicked((oldState: [element, element]) => {
+			setClicked((oldState: [element, element]) => {
 				let newState = [...oldState];
 				for (let i = 0; i < newState.length; i++) {
 					if (newState[i].value === "" && temp === 0 && isClicked) {
-						newState[i] = { key: props.index, value: props.value };
+						newState[i] = { key: index, value: value };
 						temp += 1;
 					}
 				}
