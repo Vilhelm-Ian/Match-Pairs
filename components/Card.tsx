@@ -10,6 +10,7 @@ export default function Card(props: {
 }) {
 	const [isClicked, setIsClicked] = useState(false);
 	const [isSolved, setIsSolved] = useState(false);
+  
 
 	useEffect(() => {
 		for (let i = 0; i < props.clicked.length; i++) {

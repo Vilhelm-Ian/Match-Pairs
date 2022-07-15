@@ -57,7 +57,6 @@ const Home: NextPage = () => {
   let jsx_cards = useMemo(() => {
     const arr = [];
     for (let i = 0; i < cards.length; i++) {
-      if (i === 0) console.log(clicked);
       arr.push(
         <Card
           key={`${i}${difficulty}`}
