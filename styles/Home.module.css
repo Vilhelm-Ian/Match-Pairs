@@ -10,6 +10,7 @@
 .nav {
   display: flex;
   justify-content: stretch;
+  width: 100vw;
 }
 
 .main {
@@ -27,7 +28,9 @@
   text-decoration: none;
 }
 
-.grid_layout_easy, .grid_layout_medium, .grid_layout_hard{
+.grid_layout_easy,
+.grid_layout_medium,
+.grid_layout_hard {
   width: 100%;
   height: 90vh;
   display: grid;
@@ -36,17 +39,16 @@
 }
 
 .grid_layout_easy {
-  grid-template-columns: repeat(5,1fr); 
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .grid_layout_medium {
-  grid-template-columns: repeat(5,1fr); 
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .grid_layout_hard {
   grid-template-columns: repeat(6, 0.5fr);
 }
-
 
 @media (max-width: 600px) {
   .grid {
