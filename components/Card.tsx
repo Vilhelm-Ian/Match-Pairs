@@ -12,11 +12,6 @@ export default function Card(props: {
 	const [isSolved, setIsSolved] = useState(false);
 
 	useEffect(() => {
-		setIsClicked(false);
-		setIsSolved(false);
-	}, [props.value]);
-
-	useEffect(() => {
 		for (let i = 0; i < props.clicked.length; i++) {
 			if (props.clicked[i].key === props.index && isClicked) {
 				if (props.clicked[0].value === props.clicked[1].value)
