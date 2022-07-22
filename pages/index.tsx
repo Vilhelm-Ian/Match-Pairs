@@ -17,9 +17,7 @@ export interface element {
 function shuffle(arr: any[]): any[] {
   for (let i = 0; i < arr.length; i++) {
     let random = Math.floor(Math.random() * arr.length);
-    let temp = arr[i];
-    arr[i] = arr[random];
-    arr[random] = temp;
+    [arr[i], arr[random]] = [arr[random], arr[i]];
   }
   return arr;
 }
