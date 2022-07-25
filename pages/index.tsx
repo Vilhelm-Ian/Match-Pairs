@@ -3,6 +3,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useState, useEffect, useMemo } from "react";
 import Card from "../components/Card";
+import { CardType } from "../components/Types";
 
 let emojis =
   "😀 😃 😄 😁 😆 😅 😂 🤣 🥲 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐 🤓 😎 🥸 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🤭 🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡 💩 👻 💀 ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾".split(
@@ -30,7 +31,7 @@ let difficulty_styles = [
 
 const Home: NextPage = () => {
   const [difficulty, setDifficulty] = useState(1);
-  const [cards, setCards] = useState<string[]>([]);
+  const [cards, setCards] = useState<CardType[]>([]);
   const [clicked, setClicked] = useState<[element, element]>([
     { value: "", key: NaN },
     { value: "", key: NaN },
@@ -46,11 +47,18 @@ const Home: NextPage = () => {
     for (let i = 0; i < 10 * difficulty; i++) {
       let z = i;
       if (i >= (10 * difficulty) / 2) z -= (10 * difficulty) / 2;
-      temp.push(emojis[z]);
+      temp.push({ value: emojis[z], clicked: false });
     }
     temp = shuffle(temp);
     setCards(temp);
   }, [difficulty]);
+
+  useEffect(() => {
+    if (cards.length === 0) return;
+    if (cards.filter((card) => !card.clicked).length === 0) {
+      console.log("are all clicked");
+    }
+  }, [cards]);
 
   let jsx_cards = useMemo(() => {
     const arr = [];
@@ -60,8 +68,9 @@ const Home: NextPage = () => {
           key={`${i}${difficulty}`}
           index={i}
           clicked={clicked}
-          value={cards[i]}
+          value={cards[i].value}
           setClicked={setClicked}
+          setCards={setCards}
         />
       );
     }

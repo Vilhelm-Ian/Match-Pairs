@@ -1,17 +1,19 @@
 import style from "../styles/Card.module.css";
 import { useState, useEffect } from "react";
 import { element } from "../pages/index";
+import { CardType } from "./Types";
 
 export default function Card(props: {
 	value: string;
 	clicked: [element, element];
 	setClicked(arg: any): void;
+	setCards(arg: any): void;
 	index: number;
 }) {
 	const [isClicked, setIsClicked] = useState(false);
 	const [isSolved, setIsSolved] = useState(false);
 
-	let { clicked, index, setClicked, value } = props;
+	let { clicked, index, setClicked, value, setCards } = props;
 	let first_clicked_element = clicked[1];
 
 	useEffect(() => {
@@ -29,6 +31,14 @@ export default function Card(props: {
 
 	useEffect(
 		(temp = 0) => {
+			if (value) {
+				setCards((oldCards: CardType[]) => {
+					let newState = [...oldCards];
+					newState[index].clicked = isClicked;
+					return newState;
+				});
+			}
+
 			setClicked((oldState: [element, element]) => {
 				let newState = [...oldState];
 				for (let i = 0; i < newState.length; i++) {
